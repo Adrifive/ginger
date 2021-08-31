@@ -9,5 +9,8 @@
 - Sorry, I didn't get that.
 # SendActivity_859266()
 [Activity
-    Text = Welcome to Weather Bot! Type "weather" to get started.
+    Text = ${SendActivity_859266_text()}
 ]
+
+# SendActivity_859266_text()
+- BENVENUTO to the Bot! Type "weather" to get started.
