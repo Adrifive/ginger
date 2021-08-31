@@ -1,0 +1,114 @@
+{
+  "$kind": "Microsoft.AdaptiveDialog",
+  "$designer": {
+    "id": "hi5KvF",
+    "name": "get_weather",
+    "description": "Get the current weather conditions."
+  },
+  "autoEndDialog": true,
+  "defaultResultProperty": "dialog.result",
+  "triggers": [
+    {
+      "$kind": "Microsoft.OnBeginDialog",
+      "$designer": {
+        "name": "BeginDialog",
+        "description": "",
+        "id": "0FbfsN"
+      },
+      "actions": [
+        {
+          "$kind": "Microsoft.SendActivity",
+          "$designer": {
+            "id": "EUokla"
+          },
+          "activity": "${SendActivity_EUokla()}"
+        },
+        {
+          "$kind": "Microsoft.TextInput",
+          "$designer": {
+            "id": "ogdnVf"
+          },
+          "disabled": false,
+          "maxTurnCount": 3,
+          "alwaysPrompt": false,
+          "allowInterruptions": false,
+          "prompt": "${TextInput_Prompt_ogdnVf()}",
+          "property": "user.postalcode",
+          "outputFormat": "=trim(this.value)",
+          "unrecognizedPrompt": "${TextInput_UnrecognizedPrompt_ogdnVf()}",
+          "invalidPrompt": "${TextInput_InvalidPrompt_ogdnVf()}",
+          "validations": [
+            "length(this.value) == 5"
+          ],
+          "defaultValue": "12345"
+        },
+        {
+          "$kind": "Microsoft.SendActivity",
+          "$designer": {
+            "id": "xxoYGu",
+            "comment": ""
+          },
+          "activity": "${SendActivity_xxoYGu()}"
+        },
+        {
+          "$kind": "Microsoft.HttpRequest",
+          "$designer": {
+            "id": "RQTZ7a"
+          },
+          "resultProperty": "dialog.api_response",
+          "responseType": "json",
+          "method": "GET",
+          "url": "http://api.openweathermap.org/data/2.5/weather?zip=${user.postalcode},us&appid=a5f26b23b2cc03861941689b09353809"
+        },
+        {
+          "$kind": "Microsoft.IfCondition",
+          "$designer": {
+            "id": "hiErvR"
+          },
+          "condition": "=dialog.api_response.statusCode == 200",
+          "actions": [
+            {
+              "$kind": "Microsoft.SetProperties",
+              "$designer": {
+                "id": "05br6r"
+              },
+              "assignments": [
+                {
+                  "property": "dialog.weather",
+                  "value": "=dialog.api_response.content.weather[0].description"
+                },
+                {}
+              ]
+            },
+            {
+              "$kind": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "eYentK"
+              },
+              "activity": "${SendActivity_eYentK()}"
+            }
+          ],
+          "elseActions": [
+            {
+              "$kind": "Microsoft.SendActivity",
+              "$designer": {
+                "id": "rxoDFY"
+              },
+              "activity": "${SendActivity_rxoDFY()}"
+            },
+            {
+              "$kind": "Microsoft.DeleteProperty",
+              "$designer": {
+                "id": "WT8k3C"
+              },
+              "property": "user.postalcode"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "generator": "get_weather.lg",
+  "recognizer": "get_weather.lu.qna",
+  "id": "get_weather"
+}

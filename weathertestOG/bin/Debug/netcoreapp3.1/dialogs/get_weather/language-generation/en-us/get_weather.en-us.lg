@@ -1,0 +1,41 @@
+[import](common.lg)
+
+# SendActivity_EUokla()
+[Activity
+    Text = Let's check the weather.
+]
+
+# TextInput_Prompt_ogdnVf()
+[Activity
+    Text = What's your postal code?
+]
+
+# TextInput_UnrecognizedPrompt_ogdnVf()
+[Activity
+    Text = Sorry, I do not understand . Please specify a 5 digit postal code in the format 12345.
+]
+
+# TextInput_InvalidPrompt_ogdnVf()
+[Activity
+    Text = Sorry. I'm looking for a 5 digit number as postal code. Please specify a 5 digit postal code in the format 12345.
+]
+
+# SendActivity_eYentK()
+[Activity
+    Text = ${SendActivity_eYentK_text()}
+]
+
+# SendActivity_rxoDFY()
+[Activity
+    Text = Something went wrong: ${dialog.api_response.content.message}.
+]
+
+# SendActivity_xxoYGu()
+[Activity
+    Text = ${SendActivity_xxoYGu_text()}
+]
+
+# SendActivity_xxoYGu_text()
+- ${user.postalcode}
+# SendActivity_eYentK_text()
+- The weather is ${dialog.weather}.
